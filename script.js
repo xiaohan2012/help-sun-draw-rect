@@ -30,12 +30,13 @@ function drawRect(canvas,c){
 }
 
 function drawComputedLines(canvas,c){
-    var top_line_length = getK() * getBottomLineLength(); 
     //draw the AC side line
+    var top_line1_length = getK1() * getBottomLineLength(); 
     var bottom_left_x = rect_x + getBottomLineLength();
     var bottom_left_y = rect_y + rect_h;
     
-    var top_left_x = rect_x + top_line_length;
+    var top_left_x = rect_x + top_line1_length;
+    console.log(top_line1_length);
     var top_left_y = rect_y;
 
     c.lineWidth = 3;
@@ -48,10 +49,11 @@ function drawComputedLines(canvas,c){
     c.stroke();
 
     //draw the BD side line
+    var top_line2_length = getK2() * getBottomLineLength(); 
     var bottom_right_x = rect_x + rect_w - getBottomLineLength();
     var bottom_right_y = rect_y + rect_h;
 
-    var top_right_x = rect_x + rect_w - top_line_length;
+    var top_right_x = rect_x + rect_w - top_line2_length;
     var top_right_y = rect_y;
 
     c.lineWidth = 3;
@@ -112,11 +114,15 @@ function getBottomLineLength(){
     return parseFloat(text.value);
 }
 
-function getK(){
-    var text = document.getElementById("k-value");
+function getK1(){
+    var text = document.getElementById("k1-value");
     return parseFloat(text.value);
 }
 
+function getK2(){
+    var text = document.getElementById("k2-value");
+    return parseFloat(text.value);
+}
 function clearCanvas(canvas,c){
     c.fillStyle= "white";
     c.fillRect(0 , 0 , canvas.width , canvas.height);
