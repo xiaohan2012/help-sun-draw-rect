@@ -31,8 +31,9 @@ function drawRect(canvas,c){
 
 function drawComputedLines(canvas,c){
     //draw the AC side line
-    var top_line1_length = getK1() * getBottomLineLength(); 
-    var bottom_left_x = rect_x + getBottomLineLength();
+    var bottom_line1_length = getBottomLine1Length();
+    var top_line1_length = getK1() * bottom_line1_length ; 
+    var bottom_left_x = rect_x + bottom_line1_length;
     var bottom_left_y = rect_y + rect_h;
     
     var top_left_x = rect_x + top_line1_length;
@@ -49,8 +50,9 @@ function drawComputedLines(canvas,c){
     c.stroke();
 
     //draw the BD side line
-    var top_line2_length = getK2() * getBottomLineLength(); 
-    var bottom_right_x = rect_x + rect_w - getBottomLineLength();
+    var bottom_line2_length = getBottomLine2Length();
+    var top_line2_length = getK2() * bottom_line2_length ; 
+    var bottom_right_x = rect_x + rect_w - bottom_line2_length ;
     var bottom_right_y = rect_y + rect_h;
 
     var top_right_x = rect_x + rect_w - top_line2_length;
@@ -109,8 +111,13 @@ function getRectHeight(){
     return parseFloat(text.value);
 }
 
-function getBottomLineLength(){
-    var text = document.getElementById("length");
+function getBottomLine1Length(){
+    var text = document.getElementById("length1");
+    return parseFloat(text.value);
+}
+
+function getBottomLine2Length(){
+    var text = document.getElementById("length2");
     return parseFloat(text.value);
 }
 
