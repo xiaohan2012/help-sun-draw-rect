@@ -31,9 +31,9 @@ function drawRect(canvas,c){
 
 function drawComputedLines(canvas,c){
     //draw the AC side line
-    var bottom_line1_length = getBottomLine1Length();
-    var top_line1_length = getK1() * bottom_line1_length ; 
-    var bottom_left_x = rect_x + bottom_line1_length;
+    var line1_length = getLine1Length();
+    var top_line1_length = getK1() * line1_length ; 
+    var bottom_left_x = rect_x + line1_length;
     var bottom_left_y = rect_y + rect_h;
     
     var top_left_x = rect_x + top_line1_length;
@@ -50,12 +50,12 @@ function drawComputedLines(canvas,c){
     c.stroke();
 
     //draw the BD side line
-    var bottom_line2_length = getBottomLine2Length();
-    var top_line2_length = getK2() * bottom_line2_length ; 
+    var line2_length = getLine2Length();
+    var bottom_line2_length = getK2() * line2_length ; 
     var bottom_right_x = rect_x + rect_w - bottom_line2_length ;
     var bottom_right_y = rect_y + rect_h;
 
-    var top_right_x = rect_x + rect_w - top_line2_length;
+    var top_right_x = rect_x + rect_w - line2_length;
     var top_right_y = rect_y;
 
     c.lineWidth = 3;
@@ -93,12 +93,12 @@ function markRectPoints(canvas , c){
     //fill B: bottom right 
     c.fillStyle = "black";
     c.fillText("B" , br_x , br_y);
-    //fill C: top left
+    //fill C: top right
     c.fillStyle = "black";
-    c.fillText("C" , tl_x , tl_y);
-    //fill D: top right
+    c.fillText("C" , tr_x , tr_y);
+    //fill D: top left
     c.fillStyle = "black";
-    c.fillText("D" , tr_x , tr_y);
+    c.fillText("D" , tl_x , tl_y);
 }
 
 function getRectWidth(){
@@ -111,12 +111,12 @@ function getRectHeight(){
     return parseFloat(text.value);
 }
 
-function getBottomLine1Length(){
+function getLine1Length(){
     var text = document.getElementById("length1");
     return parseFloat(text.value);
 }
 
-function getBottomLine2Length(){
+function getLine2Length(){
     var text = document.getElementById("length2");
     return parseFloat(text.value);
 }
