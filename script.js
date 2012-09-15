@@ -2,8 +2,6 @@ window.onload = init;
 
 var rect_w,rect_h;
 var rect_x,rect_y;
-var bottom_left_x , bottom_left_y;
-var top_left_x , top_left_y;
 
 function init(){
     var viewBtn = document.getElementById("view");
@@ -17,11 +15,8 @@ function viewHandler(){
 
     drawRect(canvas,context);
     markRectPoints(canvas , context);
-
-    drawBottomLine(canvas , context);
-    drawTopLine(canvas , context);
-
-    concatBottomTop(canvas , context);
+    
+    drawComputedLines(canvas , context);
 }
 
 function drawRect(canvas,c){
@@ -34,46 +29,41 @@ function drawRect(canvas,c){
     c.strokeRect( rect_x , rect_y , rect_w , rect_h);
 }
 
-function drawBottomLine(canvas , c){
-    c.lineWidth = 3;
-    c.strokeStyle = "red";
-
-    c.beginPath();
-    c.moveTo(rect_x , rect_y + rect_h)
-
-    bottom_left_x = rect_x + getBottomLineLength();
-    bottom_left_y = rect_y + rect_h;
-    c.lineTo( bottom_left_x , bottom_left_y );
-
-    c.stroke()
-}
-
-function drawTopLine(canvas , c){
-    var length = getK() * getBottomLineLength(); 
+function drawComputedLines(canvas,c){
+    var top_line_length = getK() * getBottomLineLength(); 
+    //draw the AC side line
+    var bottom_left_x = rect_x + getBottomLineLength();
+    var bottom_left_y = rect_y + rect_h;
+    
+    var top_left_x = rect_x + top_line_length;
+    var top_left_y = rect_y;
 
     c.lineWidth = 3;
     c.strokeStyle = "red";
 
     c.beginPath();
-    c.moveTo(rect_x,rect_y);
-
-    top_left_x = rect_x + length;
-    top_left_y = rect_y;
+    c.moveTo(bottom_left_x , bottom_left_y);
     c.lineTo(top_left_x , top_left_y);
+    
+    c.stroke();
+
+    //draw the BD side line
+    var bottom_right_x = rect_x + rect_w - getBottomLineLength();
+    var bottom_right_y = rect_y + rect_h;
+
+    var top_right_x = rect_x + rect_w - top_line_length;
+    var top_right_y = rect_y;
+
+    c.lineWidth = 3;
+    c.strokeStyle = "blue";
+
+    c.beginPath();
+    c.moveTo(bottom_right_x , bottom_right_y);
+    c.lineTo(top_right_x , top_right_y);
 
     c.stroke();
 }
 
-function concatBottomTop(canvas , c){
-    c.lineWidth = 3;
-    c.strokeStyle = "red";
-    c.beginPath();
-    c.moveTo(bottom_left_x,bottom_left_y);
-
-    c.lineTo(top_left_x , top_left_y);
-
-    c.stroke();
-}
 function markRectPoints(canvas , c){
     var offset = 20;
     //bottom left x and y
